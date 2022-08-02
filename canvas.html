@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Drawing board style</title>
+    <style>
+        body {
+            background-color: bisque;
+        }
+
+        #heading {
+            overflow: auto;
+            position: relative;
+            margin-top: 15%;
+            background-color: aliceblue;
+            color: black;
+            margin-top: 0%;
+            margin-left: 15%;
+            margin-right: 15%;
+            padding-top: 5%;
+            padding-bottom: 5%;
+            width: 70%;
+            height: max-content;
+            text-align: center;
+            font-family: Arial;
+            font-weight: bolder;
+            font-style: normal;
+            font-size: larger;
+        }
+
+        #option1 {
+            display: inline-flexbox;
+            overflow: visible;
+            background-color: darkblue;
+            color: white;
+            position: relative;
+            margin-left: 15%;
+            width: 35%;
+            height: 125px;
+            text-align: center;
+            font-family: Arial;
+            font-weight: bolder;
+            font-style: normal;
+            font-size: larger;
+            transition: 0.3s;
+            padding-top: 5%;
+            padding-bottom: 5%;
+        }
+
+        #option1:hover,
+        #option2:hover {
+            background-color: yellow;
+            color: black;
+        }
+
+        #option2 {
+            display: inline-flexbox;
+            overflow: visible;
+            background-color: darkblue;
+            color: white;
+            position: relative;
+            width: 35%;
+            height: 125px;
+            text-align: center;
+            font-family: Arial;
+            font-weight: bolder;
+            font-style: normal;
+            font-size: larger;
+            transition: 0.3s;
+            padding-top: 5%;
+            padding-bottom: 5%
+        }
+
+        marquee {
+            color: red;
+            font-weight: bolder;
+            font-size: xx-large;
+        }
+    </style>
+</head>
+
+<body>
+    <marquee scrollamount="10" direction="up" height="750px" vspace="20px" style="float: left; position: absolute;">
+        W<br>E<br>L<br>C<br>O<br>M<br>E<br><br>T<br>O<br><br>C<br>A<br>N<br>V<br>A<br>S<br></marquee>
+
+    <div>
+        <div id="heading">
+            <h1>Which style of drawing you want to choose?</h1>
+        </div>
+        <span>
+            <a href="draw_continuous.html"><button id="option1">Draw over and over again to get a figure</button></a>
+            <a href="draw_single.html"><button id="option2">Draw single only.</button></a>
+        </span>
+    </div>
+
+
+</body>
+
+</html>

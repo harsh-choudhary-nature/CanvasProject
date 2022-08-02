@@ -1,0 +1,253 @@
+<!--html script for the drawing board-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Draw Continuously </title>
+    <style>
+        body {
+            background-color: bisque;
+        }
+
+        canvas {
+            background-color: white;
+        }
+
+        div,
+        p,
+        h1,
+        h2 {
+            font-family: Arial;
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        button,
+        input {
+            display: inline-flexbox;
+            overflow: visible;
+            background-color: darkblue;
+            color: white;
+            position: relative;
+            text-align: center;
+            font-family: Arial;
+            font-weight: bolder;
+            font-style: normal;
+            font-size: larger;
+            transition: 0.3s;
+        }
+
+        input {
+            background-color: aliceblue;
+            color: black;
+        }
+
+        button:hover,
+        input:hover {
+            background-color: yellow;
+            color: black;
+        }
+    </style>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+      </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+</head>
+
+<body>
+    <h1 class="heading1">Drawing Board</h1>
+    <div class="heading1para">This webpage helps you visualize simple geometric shapes such as rectangle and circles.
+    </div>
+    <h2 class="heading2">Circle</h2>
+    <div>
+        <div class="haeding2para">The area of circle with radius $r$ is given as $\pi r^2$. Similarly, the perimeter of
+            the circle
+            with radius $r$ is givem by $2 \pi r$. Now let's visualize the circle using javaScript and HTML.
+        </div>
+        <label for="circleradius">Enter the radius r:</label>
+        <input type="text" id="circleradius">
+        <br>
+        <button id="validateradius" onclick="validateRadius1()">validate Radius</button>
+        <button id="drawcircle" onclick="drawCircle()">Draw</button>
+        <button id="computecircle" onclick="showAreaPemCir()">Compute latest area/perimeter</button>
+        <p id="circleresult">Circle: NA</p>
+    </div>
+    <canvas id="circle" width="400px" height="400px" style="border:2px solid #f10909;">
+        Your browser does not support the HTML5 canvas tag.
+    </canvas>
+    <div><em>Paper size 400px $X$ 400px; max allowed radius is 200.</em></div>
+    <h2 class="heading2">Rectangle</h2>
+    <div>
+        <div class="haeding2para">The <i>area</i> of rectangle with width $w$ and height $h$ is given by $hw$.
+            Similarly,
+            the <i>perimeter</i> of rectangle with width $w$ and height $h$ is given by $2(w+h)$. Now let's visualize
+            the circle
+            using javaScript and HTML.</div>
+        <label for="widthrectangle">Enter the width w:</label>
+        <input type="text" id="widthrectangle">
+        <label for="heightrectangle">Enter the height h:</label>
+        <input type="text" id="heightrectangle">
+        <br>
+        <button id="validatewidthheight" onclick="validateWidHeiRect1()">validate Width/Height</button>
+        <button id="drawrectangle" onclick="drawRectangle()">Draw</button>
+        <button id="computerectangle" onclick="showAreaPemRect()">Compute latest area/perimeter</button>
+        <p id="rectangleresult">Rectangle: NA</p>
+    </div>
+    <canvas id="rectangle" width="600px" height="400px" style="border:2px solid #f10909;">
+        Your browser does not support the HTML5 canvas tag.
+    </canvas>
+    <div><em>Paper size 600px $X$ 400px; max allowed width is 600 and max allowed height is 400.</em></div>
+    <br>
+    <button id="clear" onclick="clearInputs()">Clear Inputs</button>
+    <script>
+        function drawCircle() {
+            if (validateRadius()) {
+                var ctx = document.getElementById(['circle']).getContext("2d");
+                ctx.beginPath();
+                ctx.arc([200], [200], [document.getElementById('circleradius').value], 0, 2 * Math.PI);
+                ctx.stroke();
+                //Here, center_x_coordinate, center_y_coordinate, and radius can be user inputs or derived based on the Canvas width and height you set (see the tag). Paper size  
+                if (Number(document.getElementById('circleradius').value) === 0) {
+                    alert("It is a point");
+                }
+            }
+
+        }
+        function drawRectangle() {
+            if (validateWidHeiRect) {
+                //Similarly, to draw rectangles, use an HTML Canvas tag and the following JavaScript code 
+                var ctx = document.getElementById(['rectangle']).getContext("2d");
+                ctx.beginPath();
+                ctx.rect([0], [0], [document.getElementById('widthrectangle').value], [document.getElementById('heightrectangle').value]);
+                ctx.stroke();
+                if (document.getElementById('widthrectangle').value === document.getElementById('heightrectangle').value) {
+                    alert("this is a square");
+                    if (Number(document.getElementById('widthrectangle').value) === 0) {
+                        alert("It is a point");
+                    }
+
+                }
+                else if (Number(document.getElementById('widthrectangle').value) === 0) {
+                    alert("It is a vertical line");
+                } else if (Number(document.getElementById('heightrectangle').value) === 0) {
+                    alert("It is a horizontal line");
+                }
+            }
+
+        }
+        function validateRadius() {
+            let myRadius = document.getElementById('circleradius').value;
+            console.log(myRadius);
+            if (myRadius.length === 0) {
+                alert('Radius cant be empty!');
+                document.getElementById('circleradius').value = '';
+                return false;
+            } else {
+                if (isNaN(Number(myRadius))) {
+                    alert('Radius must be only digits!');
+                    document.getElementById('circleradius').value = '';
+                    return false;
+                } else {
+                    if (Number(myRadius) < 0 || Number(myRadius > 200)) {
+                        alert('Radius must be between 0 and 200 units');
+                        document.getElementById('circleradius').value = '';
+                        return false;
+                    } else {
+                        return true;
+
+                    }
+                }
+            }
+
+        }
+        function validateWidHeiRect() {
+            let myWidth = document.getElementById('widthrectangle').value;
+            let myHeight = document.getElementById('heightrectangle').value;
+            console.log(myWidth);
+            console.log(myHeight);
+            //validating width
+            if (myWidth.length === 0) {
+                alert('Width cant be empty!');
+                document.getElementById('widthrectangle').value = '';
+                return false;
+            } else {
+                if (isNaN(Number(myWidth))) {
+                    alert('Width must be only digits!');
+                    document.getElementById('widthrectangle').value = '';
+                    return false;
+                } else {
+                    if (Number(myWidth) < 0 || Number(myWidth > 600)) {
+                        alert('Width must be between 0 and 600 units');
+                        document.getElementById('widthrectangle').value = '';
+                        return false;
+                    } else {
+
+                        //validating height
+                        if (myHeight.length === 0) {
+                            alert('Height cant be empty!');
+                            document.getElementById('heightrectangle').value = '';
+                            return false;
+                        } else {
+                            if (isNaN(Number(myHeight))) {
+                                alert('Height must be only digits!');
+                                document.getElementById('heightrectangle').value = '';
+                                return false;
+                            } else {
+                                if (Number(myHeight) < 0 || Number(myHeight > 400)) {
+                                    alert('Height must be between 0 and 400 units');
+                                    document.getElementById('heightrectangle').value = '';
+                                    return false;
+                                } else {
+
+                                    return true;
+
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+
+
+        }
+        function showAreaPemCir() {
+
+            if (validateRadius()) {
+                let myRadius = document.getElementById('circleradius').value;
+                document.getElementById('circleresult').innerHTML = 'Circle: Area=' + 3.14 * myRadius * myRadius + ' Perimeter:' + 2 * 3.14 * myRadius;
+            }
+        }
+        function showAreaPemRect() {
+            if (validateWidHeiRect()) {
+                let myWidth = document.getElementById('widthrectangle').value;
+                let myHeight = document.getElementById('heightrectangle').value;
+                document.getElementById('rectangleresult').innerHTML = 'Rectangle: Area=' + myHeight * myWidth + ' Perimeter:' + 2 * (myHeight + myWidth);
+            }
+        }
+        function clearInputs() {
+            document.getElementById('widthrectangle').value = '';
+            document.getElementById('heightrectangle').value = '';
+            document.getElementById('circleradius').value = '';
+            document.getElementById('rectangleresult').innerHTML = 'Rectangle: NA';
+            document.getElementById('circleresult').innerHTML = 'Circle: NA';
+            document.getElementById('circle').getContext("2d").clearRect(0, 0, 400, 400);
+            document.getElementById('rectangle').getContext("2d").clearRect(0, 0, 600, 400);
+        }
+        function validateRadius1() {
+            if (validateRadius()) {
+                alert("Radius is valid");
+            }
+        }
+        function validateWidHeiRect1() {
+            if (validateWidHeiRect()) {
+                alert("Height and width are valid");
+            }
+        }
+
+    </script>
+</body>
+
+</html>
