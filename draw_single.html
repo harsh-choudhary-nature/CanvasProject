@@ -231,7 +231,7 @@
             if (validateWidHeiRect()) {
                 let myWidth = document.getElementById('widthrectangle').value;
                 let myHeight = document.getElementById('heightrectangle').value;
-                document.getElementById('rectangleresult').innerHTML = 'Rectangle: Area=' + myHeight * myWidth + ' Perimeter:' + 2 * (myHeight + myWidth);
+                document.getElementById('rectangleresult').innerHTML = 'Rectangle: Area=' + myHeight * myWidth + ' Perimeter:' + 2 * (Number(myHeight) + Number(myWidth));
             }
         }
         function clearInputs() {
